@@ -2,7 +2,6 @@
 <html>
     <head>
     	<meta charset="utf-8">
-	    <title>Grant Norton: Web Developer</title>
 	    <meta name="description" content="Responsive web designs by Grant Norton.">
 	    <%= csrf_meta_tags %>
 	    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -14,25 +13,37 @@
     </head>
     <body>    	
     	<div class="navbar-fixed" height='300'>
-	    	<nav>
-		    	<div class="nav-wrapper">
-			        <a href="#" class="brand-logo white-text">Grant Norton</a>
-			        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-			        <ul id="nav-mobile" class="right hide-on-med-and-down">
-			            <li><a href="#about" class="white-text">About Me</a></li>
-			        	<li><a href="#skills" class="white-text">Skills</a></li>
-			        	<li><a href="#portfolio" class="white-text">Portfolio</a></li>
-			        	<li><a href="#contact" class="white-text">Contact</a></li>
-			        </ul>
-			        <ul class="side-nav" id="mobile-demo">
-        				<li><a href="#about">About Me</a></li>
-        				<li><a href="#skills">Skills</a></li>
-        				<li><a href="#portfolio">Portfolio</a></li>
-        				<li><a href="#contact">Contact</a></li>
-      				</ul>
-			    </div>
-			</nav>
-		</div>
+        <ul id="dropdown1" class="dropdown-content">
+          <li><a class="black-text" href="<%= yield(:dropdown1_route) %>"><%= yield(:dropdown1) %></a></li>
+          <li class="divider"></li>
+          <li><a class="black-text" href="<%= yield(:dropdown2_route) %>"><%= yield(:dropdown2) %></a></li>
+        </ul>
+        <ul id="dropdown2" class="dropdown-content">
+          <li><a class="black-text" href="<%= yield(:dropdown1_route) %>"><%= yield(:dropdown1) %></a></li>
+          <li class="divider"></li>
+          <li><a class="black-text" href="<%= yield(:dropdown2_route) %>"><%= yield(:dropdown2) %></a></li>
+        </ul>
+        <nav>
+          <div class="nav-wrapper">
+              <a href="index" class="brand-logo white-text">Grant Norton</a>
+              <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+              <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="#about" class="white-text">About Me</a></li>
+                <li><a href="#skills" class="white-text">Skills</a></li>
+                <li><a href="#portfolio" class="white-text">Portfolio</a></li>
+                <li><a href="#contact" class="white-text">Contact</a></li>
+                <li><a class="dropdown-button" data-activates="dropdown1">Other Pages<i class="material-icons right">arrow_drop_down</i></a></li>
+              </ul>
+              <ul class="side-nav" id="mobile-demo">
+                <li><a href="#about">About Me</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a class="dropdown-button" data-activates="dropdown2">Other Pages<i class="material-icons right">arrow_drop_down</i></a></li>
+              </ul>
+          </div>
+      </nav>
+    </div>
     	<%= yield %>
 		<footer class="page-footer">
           	<div id="contact" class="container scrollspy">

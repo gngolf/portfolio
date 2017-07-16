@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  
+  <title>Grant Norton The Developer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <script type="text/javascript">
     $(document).ready(function(){
@@ -11,6 +11,7 @@
         });
         $('.materialboxed').materialbox();
         $('.parallax').parallax();
+        $(".dropdown-button").dropdown();
         
       });
   </script>
@@ -24,16 +25,114 @@
       ga('send', 'pageview');
 
   </script>
+  <script type="text/javascript">
+    var TxtType = function(el, toRotate, period) {
+        this.toRotate = toRotate;
+        this.el = el;
+        this.loopNum = 0;
+        this.period = parseInt(period, 10) || 2000;
+        this.txt = '';
+        this.tick();
+        this.isDeleting = false;
+    };
+
+    TxtType.prototype.tick = function() {
+        var i = this.loopNum % this.toRotate.length;
+        var fullTxt = this.toRotate[i];
+
+        if (this.isDeleting) {
+        this.txt = fullTxt.substring(0, this.txt.length - 1);
+        } else {
+        this.txt = fullTxt.substring(0, this.txt.length + 1);
+        }
+
+        this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+        var that = this;
+        var delta = 200 - Math.random() * 100;
+
+        if (this.isDeleting) { delta /= 2; }
+
+        if (!this.isDeleting && this.txt === fullTxt) {
+        delta = this.period;
+        this.isDeleting = true;
+        } else if (this.isDeleting && this.txt === '') {
+        this.isDeleting = false;
+        this.loopNum++;
+        delta = 500;
+        }
+
+        setTimeout(function() {
+        that.tick();
+        }, delta);
+    };
+
+    window.onload = function() {
+        var elements = document.getElementsByClassName('typewrite');
+        for (var i=0; i<elements.length; i++) {
+            var toRotate = elements[i].getAttribute('data-type');
+            var period = elements[i].getAttribute('data-period');
+            if (toRotate) {
+              new TxtType(elements[i], JSON.parse(toRotate), period);
+            }
+        }
+        // INJECT CSS
+        var css = document.createElement("style");
+        css.type = "text/css";
+        css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
+        document.body.appendChild(css);
+    };
+  </script>
+  <% content_for :dropdown1, "Grant The Golfer" %>
+  <% content_for :dropdown1_route, "golf" %>
+  <% content_for :dropdown2, "Grant The Adventurer" %>
+  <% content_for :dropdown2_route, "adventure" %>
     
 </head>
 <body>
+  <!-- <div class="navbar-fixed" height='300'>
+        <ul id="dropdown1" class="dropdown-content">
+          <li><a class="black-text" href="main/golf">Grant The Golfer</a></li>
+          <li class="divider"></li>
+          <li><a class="black-text" href="main/adventure">Grant The Adventurer</a></li>
+        </ul>
+        <ul id="dropdown2" class="dropdown-content">
+          <li><a class="black-text" href="main/golf">Grant The Golfer</a></li>
+          <li class="divider"></li>
+          <li><a class="black-text" href="main/adventure">Grant The Adventurer</a></li>
+        </ul>
+        <nav>
+          <div class="nav-wrapper">
+              <a href="#" class="brand-logo white-text">Grant Norton</a>
+              <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+              <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="#about" class="white-text">About Me</a></li>
+                <li><a href="#skills" class="white-text">Skills</a></li>
+                <li><a href="#portfolio" class="white-text">Portfolio</a></li>
+                <li><a href="#contact" class="white-text">Contact</a></li>
+                <li><a class="dropdown-button" data-activates="dropdown1">Other Pages<i class="material-icons right">arrow_drop_down</i></a></li>
+              </ul>
+              <ul class="side-nav" id="mobile-demo">
+                <li><a href="#about">About Me</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a class="dropdown-button" data-activates="dropdown2">Other Pages<i class="material-icons right">arrow_drop_down</i></a></li>
+              </ul>
+          </div>
+      </nav>
+    </div> -->
   
   <div id="image" class="parallax-container">
   	<div class="parallax valign-wrapper">
       <img src="http://www.planwallpaper.com/static/images/518151-backgrounds_W3qVPu2.jpg">
       <div class="blur">
        <h1 class="grey-text text-lighten-5">grant norton</h1>
-       <h5 clas="grey lighten-4 grey-text text-darken-1">full stack web developer</h5> 
+       <h5 clas="grey lighten-4 grey-text text-darken-1">
+        <a href="" class="typewrite" data-period="2000" data-type='[ "Hi, Im Grant.", "I am a DEVELOPER.", "I am a GOLFER.", "I am an ADVENTURER." ]'>
+          <span class="wrap"></span>
+        </a>
+</h5> 
       </div>
     </div>
   </div>
@@ -55,8 +154,7 @@
       </div>
       <div class='col s12 m6 l6'>
           <p class="github center-align">GitHub</p>
-          <div class="center-align"><div class="github-card" data-github="gngolf" data-width="300" data-height="" data-theme="default"></div>
-          <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script></div>
+          <div class="center-align"><iframe src="http://lab.lepture.com/github-cards/card.html?user=gngolf" frameborder="0" scrolling="0" width="300" height="200" allowtransparency></iframe></div>  
       </div>    
 
       <div id="skills" class="col s12 scrollspy">
@@ -64,11 +162,11 @@
         <ul class="collapsible" data-collapsible="expandable">
           <li class="active">
             <div class="collapsible-header tooltipped" data-position="left" data-delay="50" data-tooltip="Click"><i class="mdi-av-web"></i>Languages</div>
-            <div class="collapsible-body"><p>JavaScript | Python | Ruby</p></div>
+            <div class="collapsible-body"><p>JavaScript | Python | Ruby | PHP</p></div>
           </li>
           <li>
             <div class="collapsible-header tooltipped" data-position="left" data-delay="50" data-tooltip="Click"><i class="mdi-editor-format-align-justify"></i>Databases</div>
-            <div class="collapsible-body"><p>MySQL | MongoDB | PostgreSQL</p></div>
+            <div class="collapsible-body"><p>MySQL | MongoDB | PostgreSQL | MSSQL</p></div>
           </li>
           <li>
             <div class="collapsible-header tooltipped" data-position="left" data-delay="50" data-tooltip="Click"><i class="mdi-av-play-shopping-bag"></i>Frameworks</div>
@@ -76,7 +174,7 @@
           </li>
           <li>
             <div class="collapsible-header tooltipped" data-position="left" data-delay="50" data-tooltip="Click"><i class="mdi-editor-insert-comment"></i>Additional Skills</div>
-            <div class="collapsible-body"><p>HTML | CSS  | Jquery | RSpec | Bootstrap | Materialize</p></div>
+            <div class="collapsible-body"><p>Wordpress | HTML | CSS  | Jquery | RSpec | Bootstrap | Materialize</p></div>
           </li><li>
             <div class="collapsible-header tooltipped" data-position="left" data-delay="50" data-tooltip="Click"><i class="mdi-editor-insert-comment"></i>Soft Skills</div>
             <div class="collapsible-body"><p>Excellent Communication | Adaptable | Positive Attitude | Team Player | Strong Work Ethic</p></div>
@@ -99,7 +197,7 @@
       <div id="portfolio" class="col s12 scrollspy">
         <h5>PORTFOLIO</h5>
         <hr>
-        <p>Below are a couple of examples of my work. Keep in mind, my development career is just getting started so I have a limited number of projects. Please check back down the road to see more examples!</p>
+        <p>Below are a couple of examples of my work.  Please check back, down the road, to see more examples!</p>
         <br>
         <div class="row">
           
